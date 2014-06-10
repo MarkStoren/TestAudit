@@ -1,5 +1,5 @@
 -- TestAudit. Script db creation
--- June 5, 2014
+-- June 10, 2014
 
 USE [TestAudit]
 GO
@@ -118,6 +118,27 @@ CREATE TABLE [dbo].[TestCase](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 SET ANSI_PADDING OFF
+GO
+/****** Object:  StoredProcedure [dbo].[UpdateTestSuite]    Script Date: 06/10/2014 21:28:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[UpdateTestSuite](@ID BIGINT, @Name VARCHAR(50), @ApplicationID BIGINT)
+AS
+BEGIN
+
+	SET NOCOUNT ON
+
+	IF @ID = 0
+		INSERT INTO dbo.TestSuite(Name, ApplicationID)
+		VALUES(@Name, @ApplicationID)
+	ELSE
+		UPDATE dbo.TestSuite
+		SET Name = @Name, ApplicationID = @ApplicationID
+		WHERE ID = @ID
+		
+END
 GO
 /****** Object:  Table [dbo].[TestExecution]    Script Date: 06/05/2014 15:50:15 ******/
 SET ANSI_NULLS ON
